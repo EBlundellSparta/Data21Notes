@@ -1,0 +1,51 @@
+# variable_name = "Hello world"
+# a = 20
+# b = 6.7
+#  print(variable_name)
+#  print(type(variable_name))
+#  print(a + b)
+#  print(type(a))
+#  print(type(b))
+#  print("What is your name?")
+#  name = input("What is your name?")
+#  print("Hello " + name)
+#  OR print (f"Hello {name}")
+# name = input("What is your name? ")
+# age = input("What is your age? ")
+# height = input("What is your height? ")
+# date = input("What date were you born? ")
+#
+# print(f"Hello {name}, you are {age}, your height is {height} and were born on {date}")
+# print("Hello World"[0:5]) -- Slicing method using square brackets (includes first digit up to but no including last)
+# print("Hello".upper()/lower()/capitalize()) -- Uppercase/lowercase/capitalize
+# print("Hello".count('l')) -- Counts the specified letter
+
+# LISTS, TUPLES AND DICT.
+# shopping_list = ['eggs', 'milk', 'bread'] -- list
+# print(shopping_list[0:2]) -- prints 'eggs' and 'milk'
+# shopping_list[0] = 'chocolate' -- updates first entry
+
+# shopping_tup = ('bread', 'milk', 'eggs') -- tuple
+
+# student_1 = {"name":"Ed", "stream":"data", "list":[lst1,lst2...]} -- dictionary
+# print(student_1["list"]) -- grabs list from our dict.
+# student_1["name"] = "Bob" -- updates that particular key value
+# student_1["list"].remove() -- would delete that key value field
+
+# SETS
+# car_parts = {"wheels", "doors", "windows"} -- this is a set (different to a dict.)
+# car_parts.add("headlights") -- adds something to a set
+# car_parts.discard("doors") -- removes something from a set
+
+# CONTROL FLOWS
+# age = 3
+# if age > 18:
+#     print("You are older than 18")
+# else:
+#     print("You are younger than 18")
+
+# list_data = [1,2,3,4,6,8,5]
+# em_list = [[1,2,3],[2,3,4]]
+#
+# for data in em_list:
+#     print(data)
