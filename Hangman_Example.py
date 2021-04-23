@@ -44,16 +44,18 @@ def play_a_game():
         if guess.isalpha() is False:
             print(f"{player_2.capitalize()} this is an invalid character, please choose a letter:  ")
         else:
-            if sec_word_view.strip('/') == sec_word.strip(" "):
-                print(f"{player_2.capitalize()} has won and guessed the phrase, which is {sec_word}")
-                break
-            elif guess not in already_guessed:
+            if guess not in already_guessed:
                 already_guessed.add(guess)
                 print(already_guessed)
                 if guess in sec_word:
                     sec_word_view = replace_letter(sec_word_view, '_', guess, sec_word)
                     print(sec_word_view)
-                    guess = input(f"{player_2.capitalize()} please choose another letter to guess:  ")
+                    if sec_word_view.replace('/', "") == sec_word.replace(" ", ""):
+                        print(f"{player_2.capitalize()} has won and guessed the phrase, which is "
+                              f"{sec_word.capitalize()}")
+                        break
+                    else:
+                        guess = input(f"{player_2.capitalize()} please choose another letter to guess:  ")
                 else:
                     count += 1
                     print("This is wrong, you have ", str(8 - count), " more guesses")
@@ -63,7 +65,7 @@ def play_a_game():
 
     if count == 8:
         print(f"{player_1.capitalize()} has won, unfortunately {player_2.capitalize()} didn't guess "
-              f"the word, which was '{sec_word}'")
+              f"the word, which was '{sec_word.capitalize()}'")
     nxt_game = input("Do you want to play again (y/n):  ")
     if nxt_game.lower() == 'y':
         play_a_game()
