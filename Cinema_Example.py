@@ -84,19 +84,40 @@ class Cinema_Location(Cinema):
     def __init__(self, number_of_screens):
         super().__init__()
         self._num_of_screens = {}
+        self._time_of_film = {}
         for i in range(number_of_screens):
-            self._num_of_screens["Screen " + str(i + 1)] = set()
+            self._num_of_screens["Screen " + str(i + 1)] = {}
 
-    def add_film_screen(self, screen_number: int, sel_film: str):
-        self._num_of_screens["Screen " + str(screen_number)].add(sel_film)
+    def add_film_screen(self, screen_number: int, time_set: str, sel_film: str):
+        emp_set = set()
+        if sel_film.title() in self._time_of_film.keys():
+            for i in self._time_of_film[sel_film.title()]:
+                emp_set.add(i)
+                emp_set.add(time_set)
+        else:
+            emp_set.add(time_set)
+        self._time_of_film[sel_film.title()] = emp_set
+        self._num_of_screens["Screen " + str(screen_number)] = self._time_of_film
         return self._num_of_screens
 
-    def rem_film_screen(self, screen_number: int, sel_film: str):
-        temp_set = set()
-        for i in self._num_of_screens.get("Screen " + str(screen_number)):
-            if i.lower() != sel_film.lower():
-                temp_set.add(i)
-        self._num_of_screens["Screen " + str(screen_number)] = temp_set
+    def rem_film_screen(self, screen_number: int, rem_time: str, sel_film: str,):
+        emp_set = set()
+        if sel_film.title() not in self._time_of_film.keys():
+            print("This film is not on today!")
+        else:
+            for i in self._time_of_film[sel_film.title()]:
+                if i != rem_time:
+                    emp_set.add(i)
+            if emp_set == set():
+                for key, value in self._num_of_screens["Screen " + str(screen_number)]:
+                    if key != sel_film.title():
+                        emp_set_2 = set()
+                        for i in value:
+                            emp_set_2.add(i)
+                        self._num_of_screens["Screen " + str(screen_number)] = {key: emp_set_2}
+            else:
+                self._time_of_film[sel_film.title()] = emp_set
+        self._num_of_screens["Screen " + str(screen_number)] = self._time_of_film
         return self._num_of_screens
 
     def print_film_screen(self, screen_number: int):
@@ -106,23 +127,26 @@ class Cinema_Location(Cinema):
             return self._num_of_screens.get("Screen " + str(screen_number), "This screen doesn't exist")
 
 loc_1 = Cinema_Location(5)
+loc_1.add_film_screen(3, "14:10", "Deadpool")
+loc_1.add_film_screen(3, "19:10", "Deadpool")
+loc_1.add_film_screen(3, "13:10", "Lion King")
+loc_1.add_film_screen(3, "14:05", "Lion King")
+loc_1.add_film_screen(3, "19:10", "Lion King")
+loc_1.rem_film_screen(3, "14:10", "Deadpool")
+loc_1.rem_film_screen(3, "19:10", "Deadpool")
+print(loc_1._num_of_screens)
 
-class Films_At_Time(Cinema_Location):
+# class Films_At_Time(Cinema_Location):
+#
+#     def __init__(self, number_of_screens):
+#         super().__init__(number_of_screens)
+#         self._time_of_films = {}
+#
+#     def add_film_time(self, sel_film: str, time: "e.g. 14:10"):
+#         new_date = datetime.strptime(time, "%H:%M")
+#         new_date = "{}:{}".format(new_date.hour, new_date.minute)
+#         if sel_film.title() not in self._time_of_films.keys():
+#             self._time_of_films[sel_film.title()] = {new_date}
+#         else:
+#             self._time_of_films[sel_film.title()].add(new_date)
 
-    def __init__(self, number_of_screens):
-        super().__init__(number_of_screens)
-        self._time_of_films = {}
-
-    def add_film_time(self, sel_film: str, time: "e.g. 14:10"):
-        new_date = datetime.strptime(time, "%H:%M")
-        new_date = "{}:{}".format(new_date.hour, new_date.minute)
-        if sel_film.title() not in self._time_of_films.keys():
-            self._time_of_films[sel_film.title()] = {new_date}
-        else:
-            self._time_of_films[sel_film.title()].add(new_date)
-
-loc_1_times = Films_At_Time(5)
-loc_1_times.add_film_time("Deadpool", "14:10")
-loc_1_times.add_film_time("Deadpool", "14:50")
-loc_1_times.add_film_time("the lion the witch and the wardrobe", "13:50")
-print(loc_1_times._time_of_films)
