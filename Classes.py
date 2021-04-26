@@ -36,7 +36,7 @@
 
 # FOUR PILLARS OF OOP
 
-# Abstaction - User is kept unaware of the how the method actually works, just worried about the end result
+# Abstraction - User is kept unaware of the how the method actually works, just worried about the end result
 
 # Encapsulation - Some parts of the class is kept hidden from the user (using __)
 
