@@ -5,6 +5,12 @@ import json
 #         pet = json.load(jsonfile)
 #         # print(pet["name"])
 
+# This just creates a json file called "create_json_file" from some dictionary
+# my_dict = {"key":"value", "key2":["value2",3]}
+
+# with open("create_json_file.json", "w") as jsonfile:
+#     json.dump(my_dict, jsonfile)
+
 
 class RatesParser:
 

@@ -1,0 +1,10 @@
+{
+  "name": "Edward",
+  "age": 24,
+  "gender": "male",
+  "groceries": [
+    "Chocolate",
+    "Milk",
+    "Pizza"
+  ]
+}
