@@ -17,7 +17,7 @@ bucket_name = 'data-eng-resources'
 # bucket_contents = s3_client.list_objects_v2(Bucket=bucket_name)
 
 # This would only look in the big-data/pig-demo prefix of the bucket
-bucket_contents = s3_client.list_objects_v2(Bucket=bucket_name, Prefix='python/')
+bucket_contents = s3_client.list_objects_v2(Bucket=bucket_name, Prefix='big-data/pig-demo')
 
 ## This prints the name of each document within the bucket
 # for name in bucket_contents['Contents']:
