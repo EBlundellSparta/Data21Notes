@@ -47,4 +47,20 @@ def prime_list(number):
             lst.append(i)
     return sum(lst)
 
-print(prime_list(2000000))
+# Given an array of integers [n1, n2...] return a new array such that each element at index i 
+# of the new array is the product of all the numbers in original array EXCEPT the one at i
+def product_array(array: list):
+    new_array = []
+    for number in array:
+        product = 1
+        for other_number in array:
+            if number == other_number:
+                continue
+            else:
+                product *= other_number
+        new_array.append(product)
+    return new_array
+
+dummy_lst = [1, 3, 5]
+for i, j in dummy_lst:
+    print(i, j)
