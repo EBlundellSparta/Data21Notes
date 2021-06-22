@@ -61,6 +61,13 @@ def product_array(array: list):
         new_array.append(product)
     return new_array
 
-dummy_lst = [1, 3, 5]
-for i, j in dummy_lst:
-    print(i, j)
+# Find three Pythagorean numbers (a^2 + b^2 = c^2) such that a + b + c = 1000
+def pythag_numbers():
+    for a in range(2, 1000):
+        for b in range(2, 1000):
+            for c in range(2, 1000):
+                if a**2 + b**2 == c**2:
+                    if a + b + c == 1000:
+                        print(a * b * c)
+
+pythag_numbers()
