@@ -94,58 +94,42 @@ def cdr(pair: tuple):
         return b
     return pair(return_last)
 
-# Given mapping a=1, b=2,..., z=26 and an encoded message, count number of ways message can be decoded
-# i.e. '111' has 3 possible ways, [aaa, ka and ak]
+# Given an array of numbers, return largest sum of two non-adjacent numbers i.e. [5,1,1,5] will return 10
+def largest_non_adj_sum(array: list):
+    previous, largest = 0, 0
+    for amount in array:
+        print(f"amount: {amount}; previous: {previous}; largest: {largest}")
+        previous, largest = largest, max(largest, previous + amount)
+        print(f"new_previous: {previous}; new_largest: {largest}")
+    return largest
 
-def decode_message(encoded_message: str):
-    decode = {
-        1: 'a',
-        2: 'b',
-        3: 'c',
-        4: 'd',
-        5: 'e',
-        6: 'f',
-        7: 'g',
-        8: 'h',
-        9: 'i',
-        10: 'j',
-        11: 'k',
-        12: 'l',
-        13: 'm',
-        14: 'n',
-        15: 'o',
-        16: 'p',
-        17: 'q',
-        18: 'r',
-        19: 's',
-        20: 't',
-        21: 'u',
-        22: 'v',
-        23: 'w',
-        24: 'x',
-        25: 'y',
-        26: 'z'
-    }
-    count = 1
-    full_str_lst = []
-    for index in range(len(encoded_message) - 1):
-        sub_str = encoded_message[index] + encoded_message[index + 1]
-        left_str = encoded_message[:index]
-        right_str = encoded_message[index + 2:]
-        if index == 0:
-            print(sub_str + '/' + right_str)
-        elif right_str == '':
-            print(left_str + '/' + sub_str)
-        else:
-            print(left_str + '/' + sub_str + '/' + right_str)
-    #     if int(sub_str_2) in decode.keys():
-    #       count += 1
-    #     if index == 0:
-    #         full_str = sub_str + ' ' + encoded_message[index + 2:]
-    #     else:
-    #         full_str = encoded_message[:index] + ' ' + sub_str + ' ' + encoded_message[index + 2:]
-    #     full_str_lst.append(full_str)
-    # print(full_str_lst)
-    # print(count)
+# The series 1^1 + 2^2 +...+10^10 = 10405071317. Find the last ten digits of sum 1^1 + 2^2 +...+ 1000^1000
+def self_powers(array: list):
+    sum = 0
+    for i in array:
+        sum += i ** i
+    return sum
 
-decode_message('11124')
+# If p is the perimeter of a right angle triangle with lengths {a,b,c} there are exactly 3 solutions
+# for p = 120. For which value of p <= 1000 is the number maximised?
+
+def num_solutions_int_rt(perimeter: int):
+    num_sols = 0
+    for c in range(int((3*perimeter)/5)):
+        for b in range(c):
+            for a in range(b):
+                if a**2 + b**2 == c**2 and a + b + c == perimeter:
+                    num_sols += 1
+    return num_sols
+
+p = 0 
+number_solutions = 0
+for i in range(499, 1001):
+    if i%2!=0:
+        continue
+    else:
+        print(i)
+        if num_solutions_int_rt(i) >= number_solutions:
+            number_solutions = num_solutions_int_rt(i)
+            p = i
+            print(p, number_solutions)
