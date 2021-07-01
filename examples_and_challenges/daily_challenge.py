@@ -110,26 +110,46 @@ def self_powers(array: list):
         sum += i ** i
     return sum
 
-# If p is the perimeter of a right angle triangle with lengths {a,b,c} there are exactly 3 solutions
-# for p = 120. For which value of p <= 1000 is the number maximised?
+# Implement an autocomplete system such that given a string and a set of possible outcomes, it will return
+# all cases i.e. string 'de' with set [Deer, Dog, Deal] will return [Deer, Dog, Deal]
 
-def num_solutions_int_rt(perimeter: int):
-    num_sols = 0
-    for c in range(int((3*perimeter)/5)):
-        for b in range(c):
-            for a in range(b):
-                if a**2 + b**2 == c**2 and a + b + c == perimeter:
-                    num_sols += 1
-    return num_sols
+def autocomplete_str(substring: str, set_words: list):
+    emp_lst = []
+    for word in set_words:
+        if word.lower().startswith(substring.lower()):
+            emp_lst.append(word)
+    return emp_lst
 
-p = 0 
-number_solutions = 0
-for i in range(499, 1001):
-    if i%2!=0:
-        continue
-    else:
-        print(i)
-        if num_solutions_int_rt(i) >= number_solutions:
-            number_solutions = num_solutions_int_rt(i)
-            p = i
-            print(p, number_solutions)
+# Triangle Numbers: 1/2n(n+1) is formula so 1,3,6,10... are all triangle numbers. Using this and text file
+# work out how many words are triangle number (converting each letter to it's corresponding alphabetical
+# position)
+
+def is_triangle_number(number: int):
+    n = 0
+    confirmation = False
+    while 0 <= n <= 250:
+        if n * (n+1) == 2 * number:
+            confirmation = True
+            break
+        else:
+            n += 1
+    return confirmation
+
+def convert_word_number(word: str):
+    num_value = {'"': 0, 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9, 'j': 10, 
+    'k': 11, 'l': 12, 'm': 13, 'n': 14, 'o': 15, 'p': 16, 'q': 17, 'r': 18, 's': 19, 't': 20, 'u': 21,
+    'v': 22, 'w': 23, 'x': 24, 'y': 25, 'z': 26}
+    value = 0
+    for letter in word:
+        value += num_value[letter.lower()]
+    return value
+
+f = open('examples_and_challenges\p042_words.txt').read().split(',')
+
+true_words = []
+for word in f:
+    new_word = str(word)
+    if is_triangle_number(convert_word_number(new_word)):
+        true_words.append(word)
+
+print(len(true_words))
