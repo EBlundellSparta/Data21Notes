@@ -144,12 +144,55 @@ def convert_word_number(word: str):
         value += num_value[letter.lower()]
     return value
 
-f = open('examples_and_challenges\p042_words.txt').read().split(',')
+# Find the first four consecutive integers to have four distinct prime factors each. What is the first number?
 
-true_words = []
-for word in f:
-    new_word = str(word)
-    if is_triangle_number(convert_word_number(new_word)):
-        true_words.append(word)
+def prime_factors(number: int):
+    number_lst = []
+    if is_prime(number):
+        number_lst.append(number)
+    else:
+        current_num = number
+        while current_num != 1:
+            if is_prime(int(current_num)):
+                number_lst.append(int(current_num))
+                break
+            else:
+                for i in range(2, int(current_num/2) + 1):
+                    if current_num%i == 0:
+                        current_num = current_num/i
+                        number_lst.append(int(i))
+                        break
+    return(number_lst)
 
-print(len(true_words))
+def new_prime_factors(list_of_prime_factors: list):
+    current_factor = 0
+    new_lst = []
+    for factor in list_of_prime_factors:
+        if current_factor == factor:
+            continue
+        else:
+            current_factor = factor
+            if list_of_prime_factors.count(factor) == 1:
+                new_lst.append(f"{factor}")
+            else:
+                new_lst.append(f"{factor}[{list_of_prime_factors.count(factor)}]")
+    return new_lst
+
+ppprevious_lst = []
+pprevious_lst = []
+previous_lst = []
+for i in range(3,1000000):
+    print(i)
+    for factor in new_prime_factors(prime_factors(i)):
+        if factor not in previous_lst and factor not in pprevious_lst and factor not in ppprevious_lst:
+            confirmation = True
+        else:
+            confirmation = False
+    if confirmation is True and len(previous_lst) == 4 and len(new_prime_factors(prime_factors(i))) == 4 \
+    and len(pprevious_lst) == 4 and len(ppprevious_lst) == 4:
+        print(i - 3, i - 2, i - 1, i)
+        break
+    else:
+        ppprevious_lst = new_prime_factors(prime_factors(i - 2))
+        pprevious_lst = new_prime_factors(prime_factors(i - 1))
+        previous_lst = new_prime_factors(prime_factors(i))
