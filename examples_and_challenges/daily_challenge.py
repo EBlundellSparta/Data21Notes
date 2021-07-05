@@ -162,37 +162,67 @@ def prime_factors(number: int):
                         current_num = current_num/i
                         number_lst.append(int(i))
                         break
-    return(number_lst)
-
-def new_prime_factors(list_of_prime_factors: list):
     current_factor = 0
     new_lst = []
-    for factor in list_of_prime_factors:
+    for factor in number_lst:
         if current_factor == factor:
             continue
         else:
             current_factor = factor
-            if list_of_prime_factors.count(factor) == 1:
+            if number_lst.count(factor) == 1:
                 new_lst.append(f"{factor}")
             else:
-                new_lst.append(f"{factor}[{list_of_prime_factors.count(factor)}]")
+                new_lst.append(f"{factor}[{number_lst.count(factor)}]")
     return new_lst
 
-ppprevious_lst = []
-pprevious_lst = []
-previous_lst = []
-for i in range(3,1000000):
-    print(i)
-    for factor in new_prime_factors(prime_factors(i)):
-        if factor not in previous_lst and factor not in pprevious_lst and factor not in ppprevious_lst:
+def fib_sequence(n: int):
+    x = 1
+    y = 2
+    fib_lst = [1]
+    for i in range(n):
+        fib_lst.append(y)
+        z = x + y
+        x, y = y, z
+    return fib_lst[n]
+
+# Given an unordered name list, sort these alphabetically and then return the total score each name will
+# receive depending on its position. i.e. 'Colin' in 3rd place will receive a score of 53 * 3 = 159
+
+def name_scores(name_lst: list):
+    sorted_name_lst = sorted(name_lst)
+    total = 0
+    for index in enumerate(sorted_name_lst):
+        total += (index[0] + 1) * convert_word_number(index[1])
+    return total
+
+def combin_nums(number: str):
+    all_combs = []
+    for index, digit in enumerate(number):
+        if index == 0:
+            all_combs.append(digit + number[index + 1:])
+        else:
+            all_combs.append(digit + number[index + 1:] + number[:index])
+    return all_combs
+
+def is_cyclic_number(number: str):
+    all_combs = combin_nums(number)
+    digit_len = len(number)
+    for i in range(digit_len + 1):
+        if str(int(number) * i) in all_combs:
             confirmation = True
         else:
             confirmation = False
-    if confirmation is True and len(previous_lst) == 4 and len(new_prime_factors(prime_factors(i))) == 4 \
-    and len(pprevious_lst) == 4 and len(ppprevious_lst) == 4:
-        print(i - 3, i - 2, i - 1, i)
-        break
+    return confirmation
+
+leftmost = '00000000137'
+i = 0
+while i >= 0:
+    new_number = leftmost + str(i)
+    if new_number.endswith('56789') is False:
+        i += 1
     else:
-        ppprevious_lst = new_prime_factors(prime_factors(i - 2))
-        pprevious_lst = new_prime_factors(prime_factors(i - 1))
-        previous_lst = new_prime_factors(prime_factors(i))
+        if is_cyclic_number(new_number):
+            print(new_number)
+            break
+        else:
+            i += 1
