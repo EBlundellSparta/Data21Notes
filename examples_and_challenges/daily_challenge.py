@@ -214,15 +214,24 @@ def is_cyclic_number(number: str):
             confirmation = False
     return confirmation
 
-leftmost = '00000000137'
-i = 0
-while i >= 0:
-    new_number = leftmost + str(i)
-    if new_number.endswith('56789') is False:
-        i += 1
-    else:
-        if is_cyclic_number(new_number):
-            print(new_number)
-            break
+
+# Given an array of integers and a number k, where 1 <= k <= length of the array, compute the maximum 
+# values of each subarray of length k. For example, given array = [10, 5, 2, 7, 8, 7] and k = 3, we 
+# should get: [10, 7, 8, 8]
+
+def max_value_subarray(array: list, k: int):
+    confirmation = False
+    ans_lst = []
+    index = 0
+    while confirmation is False:
+        if index == len(array) - k + 1:
+            confirmation = True
         else:
-            i += 1
+            tmp_lst = []
+            tmp_index = index
+            for i in range(k):
+                tmp_lst.append(array[tmp_index])
+                tmp_index += 1
+            ans_lst.append(max(tmp_lst))
+            index += 1
+    return ans_lst
