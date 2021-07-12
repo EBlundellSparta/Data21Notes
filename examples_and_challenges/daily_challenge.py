@@ -235,3 +235,31 @@ def max_value_subarray(array: list, k: int):
             ans_lst.append(max(tmp_lst))
             index += 1
     return ans_lst
+
+# Given an array of time intervals (start, end) for classroom lectures (possibly overlapping), 
+# find the minimum number of rooms required. For example, given [(30, 75), (0, 50), (60, 150)], 
+# you should return 2.
+def get_key(item):
+    return(item[0])
+
+def num_rooms(array_time_intervals: list):
+    new_lst = sorted(array_time_intervals, key = get_key)
+    room_dict = {1: 0}
+    current_num = 1
+    for interval in new_lst:
+        if interval[0] >= room_dict[1]:
+            room_dict[1] = interval[1]
+        else:
+            for item in room_dict.items():
+                if interval[0] < item[1]:
+                    confirmation = True
+                else:
+                    confirmation = False
+                    room_dict[item[0]] = interval[1]
+                    break
+            if confirmation:
+                current_num += 1
+                room_dict[current_num] = interval[1]
+    return (room_dict, current_num)
+        
+print(num_rooms([(0,50),(25,30),(25,80),(35,75),(30,45),(45,50),(55,65),(60,70)]))
