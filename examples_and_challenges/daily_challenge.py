@@ -260,6 +260,47 @@ def num_rooms(array_time_intervals: list):
             if confirmation:
                 current_num += 1
                 room_dict[current_num] = interval[1]
-    return (room_dict, current_num)
-        
-print(num_rooms([(0,50),(25,30),(25,80),(35,75),(30,45),(45,50),(55,65),(60,70)]))
+    return current_num
+
+# Given a dictionary of words and a string made up of those words (no spaces), return the original 
+# sentence in a list. If there is more than one possible reconstruction, return any of them. 
+# If there is no possible reconstruction, then return null.
+# For example, given the set of words 'quick', 'brown', 'the', 'fox', and the string "thequickbrownfox", 
+# you should return ['the', 'quick', 'brown', 'fox'].
+
+def sentence_as_list(string: str, dictionary: list):
+    test_word = ''
+    confirmation = False
+    sentence = []
+    for letter in string:
+        test_word += letter
+        if test_word in dictionary:
+            sentence.append(test_word)
+            confirmation = True
+            test_word = ''
+    if confirmation is False:
+        return None
+    else:
+        return sentence
+
+# M x N matrix made up of walls and paths, return shortest path possible. True = Wall, False = Path
+
+def wall_path_board(board: list, start_point: tuple, end_point: tuple):
+    poss_steps = []
+    confirmation = False
+    current_pos = start_point
+    steps = 0
+    while confirmation is False:
+        if current_pos == end_point:
+            confirmation = True
+        elif board[current_pos[0] + 1][current_pos[1]] == 'f':
+            pass 
+        elif board[current_pos[0] - 1] == 'f':
+            pass
+        elif board[current_pos[1] + 1] == 'f':
+            pass
+        elif board[current_pos[1] - 1] == 'f':
+            pass
+    return min(poss_steps)
+
+print([1,2,3,4][4])
